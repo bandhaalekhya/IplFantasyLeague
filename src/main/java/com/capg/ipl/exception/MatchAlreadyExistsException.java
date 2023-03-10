@@ -9,6 +9,7 @@ public class MatchAlreadyExistsException extends Exception{
 		super();
 		this.message = message;
 	}
+    @Override
     public String getMessage() {
     	return this.message;
     }

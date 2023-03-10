@@ -5,6 +5,7 @@ import java.util.List;
 import com.capg.ipl.entity.Bidder;
 import com.capg.ipl.entity.BiddingDetails;
 import com.capg.ipl.entity.MatchDetails;
+import com.capg.ipl.entity.Team;
 import com.capg.ipl.exception.BidAlreadyExistException;
 import com.capg.ipl.exception.BidNotFoundException;
 import com.capg.ipl.exception.MatchAlreadyInProgressException;
@@ -26,4 +27,5 @@ public interface BidderService {
 	public int viewPoints(long bidderId) throws UserNotFoundException;//ale
 	public void deleteBid(long biddingId) throws BidNotFoundException,MatchAlreadyInProgressException;//nishi
     public String getResult(long matchId) throws MatchNotFoundException,MatchNotStartedException;//ale
+    public Team getTeamById(long teamId) throws TeamNotFoundException;
 }

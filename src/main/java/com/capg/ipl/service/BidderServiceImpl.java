@@ -2,7 +2,7 @@ package com.capg.ipl.service;
 
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,7 +107,7 @@ public class BidderServiceImpl implements BidderService{
 		else if(!(matchRepo.existsById(biddingDetails.getMatchDetails().getMatchId()))) {
 			throw new MatchNotFoundException();
 		}
-		MatchDetails md = matchRepo.findById(biddingDetails.getMatchDetails().getMatchId()).get();
+		MatchDetails md = matchRepo.getOne(biddingDetails.getMatchDetails().getMatchId());
 		if(md.getResult()!=0) {
 			throw new MatchAlreadyInProgressException();
 		}
@@ -126,9 +126,6 @@ public class BidderServiceImpl implements BidderService{
 		else if(md.getResult()!=0) {
 			throw new MatchAlreadyInProgressException();
 		}
-//		else if(md.getTeamOne().getTeamId()!=teamId || md.getTeamTwo().getTeamId()!=teamId) {
-//			throw new TeamNotFoundException();
-//		}
 		else {
 			for(BiddingDetails bid:bd) {
 				if(bid.getMatchDetails().getMatchId()==matchId && bid.getBidder().getBidderId()==bidderId) {
@@ -141,10 +138,11 @@ public class BidderServiceImpl implements BidderService{
 
     @Override
 	public String getResult(long matchId) throws MatchNotFoundException,MatchNotStartedException{
-		if(matchRepo.existsById(matchId)) {
-			MatchDetails md = matchRepo.findById(matchId).get();
+    	Optional <MatchDetails> match = matchRepo.findById(matchId);
+		if(match.isPresent()) {
+			MatchDetails md = matchRepo.getOne(matchId);
 			if(md.getResult()!=0) {
-				Team team = teamRepo.findById(md.getResult()).get();
+				Team team = teamRepo.getOne(md.getResult());
 				return team.getTeamName();
 			}
 			throw new MatchNotStartedException();
@@ -153,7 +151,15 @@ public class BidderServiceImpl implements BidderService{
 			throw new MatchNotFoundException();
 		}
 	}
-    
+    @Override
+        public Team getTeamById(long teamId) throws TeamNotFoundException {
+          Optional<Team> t = teamRepo.findById(teamId);
+             if(t.isPresent()) {
+                Team team = teamRepo.getOne(teamId);
+                 return team;
+              }
+             throw new TeamNotFoundException();
+             }
 
 
 }

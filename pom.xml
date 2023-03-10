@@ -43,6 +43,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+		<groupId>org.sonarsource.scanner.maven</groupId>
+		<artifactId>sonar-maven-plugin</artifactId>
+		<version>3.2</version>
+		</dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
@@ -67,6 +72,24 @@
 </dependency>
 
   </dependencies>
+
+<profiles>
+<profile>
+<id>sonar</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<sonar.host.url>http://localhost:9000</sonar.host.url>
+<sonar.login>ffb3d30934b08e9aef13135a2cf3cc3577c5b8ee</sonar.login>
+</properties>
+</profile>
+</profiles>
+
+
+
+
+
 
 	<build>
 		<plugins>

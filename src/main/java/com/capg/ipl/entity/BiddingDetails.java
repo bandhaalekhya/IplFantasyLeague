@@ -19,7 +19,7 @@ public class BiddingDetails {
 	
 	@ManyToOne
 	@JoinColumn(name="bidder_id")
-	@JsonIgnoreProperties({"userName", "password","biddingDetails"})
+	@JsonIgnoreProperties({"mobileNo","points","userName", "password","biddingDetails"})
 	private Bidder bidder;
 
 	
@@ -90,7 +90,7 @@ public class BiddingDetails {
 
 	@Override
 	public String toString() {
-		return "BiddingDetails [biddingId=" + biddingId + ", bidderId=" + bidder + ", matchId=" + matchDetails + ", teamId=" + team + "]";
+		return "BiddingDetails [biddingId=" + biddingId + ", bidderId=" + bidder + ",bidderName=" +bidder.getBidderName()+ ", matchId=" + matchDetails + ", teamId=" + team + ",teamName= "+team.getTeamName()+ "]";
 	}
 	
 	
