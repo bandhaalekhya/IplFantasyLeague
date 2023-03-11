@@ -23,7 +23,7 @@ public class BiddingDetails {
 	private Bidder bidder;
 
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="match_id")
 	@JsonIgnoreProperties({"teamOne", "teamTwo","date","time","place","status","result","team"})
 	private MatchDetails matchDetails;
